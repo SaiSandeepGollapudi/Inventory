@@ -3,10 +3,10 @@ package api
 import (
 	"database/sql"
 	"net/http"
-
 )
 
 func RegisterRoutes(db *sql.DB) {
-    h := NewHandler(db)
-    http.HandleFunc("/create", h.CreateHandler())
+	h := NewHandler(db)
+	http.HandleFunc("/create", h.CreateHandler())
+	http.HandleFunc("/update", h.UpdateHandler())
 }

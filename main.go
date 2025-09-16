@@ -2,6 +2,7 @@ package main
 
 import (
 	"INVENTORY/api"
+	"INVENTORY/dataservice"
 	"database/sql"
 	"log"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 )
 
 func main() {
-	dsn := "root:mysql@tcp(127.0.0.1:3306)/inventory?parseTime=true"
+	dsn := "root:Ravichandra@2979@tcp(127.0.0.1:3306)/inventory?parseTime=true"
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)
@@ -19,6 +20,9 @@ func main() {
 
 	if err := db.Ping(); err != nil {
 		log.Fatal(err)
+	}
+	if err := dataservice.CreateTableIfNotExists(db); err != nil {
+		log.Fatal("Table creation failed:", err)
 	}
 
 	api.RegisterRoutes(db)
